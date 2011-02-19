@@ -68,7 +68,7 @@ public class XboxGamepad extends Joystick
             stick = leftright;
             if (!(stick == null ? "left" == null : stick.equals("left")) & !(stick == null ? "right" == null : stick.equals("right")))
             {
-                throw new Exception("invalid stick name:" + this.stick);
+                throw new IllegalArgumentException("invalid stick name:" + this.stick);
             }
         }
 
@@ -199,7 +199,7 @@ public class XboxGamepad extends Joystick
             } 
             else
             {
-                throw new Exception("invalid button name:" + buttonname);
+                throw new IllegalArgumentException("invalid button name:" + buttonname);
             }
 
         }
@@ -235,7 +235,7 @@ public class XboxGamepad extends Joystick
             } 
             else
             {
-                throw new Exception("invalid trigger:" + LeftRight);
+                throw new IllegalArgumentException("invalid trigger:" + LeftRight);
             }
         }
 
