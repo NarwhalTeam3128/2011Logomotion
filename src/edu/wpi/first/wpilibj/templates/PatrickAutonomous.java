@@ -18,9 +18,7 @@ public class PatrickAutonomous extends Autonomous{
 
     boolean ubertube_placed = false;
 
-    public PatrickAutonomous(MainRobot r){
-        super(r);
-
+    public void setRobot(MainRobot r){
         drive = r.getDrive();
         lineSensors = r.getLineSensors();
         forkLift = r.getForkLift();

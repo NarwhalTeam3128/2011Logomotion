@@ -43,7 +43,9 @@ public class MainRobot extends IterativeRobot
 
     int[] lineSensorChannels;
 
-    Autonomous autonomous;
+    ICPProtocol autonomous;
+    ICPProtocol teleoperated;
+    ICPProtocol disabled;
 
     /**
      * Initialize the robots control parts
@@ -68,10 +70,94 @@ public class MainRobot extends IterativeRobot
         arm = new Arm(7);
         arm.setStick(con2.rStick);
 
+    }
+    
+    public void robotInit()
+    {
+//        EncoderManagerMain.addEncoder(frontLeftEncoder);
+//        EncoderManagerMain.addEncoder(frontRightEncoder);
+//        EncoderManagerMain.addEncoder(rearLeftEnc);
+//        EncoderManagerMain.addEncoder(rearRightEnc);
+
+        /*
+         * Game Section Modules
+         */
+
         // Autonomous Code
-        autonomous = new PatrickAutonomous(this);
+        autonomous = new PatrickAutonomous();
+        autonomous.setRobot(this);
+
+        // Teleoperated Code
+        teleoperated = new GeneralTeleoperated();
+        teleoperated.setRobot(this);
+
+        // Disabled Code
+        disabled = new GenericDisabled();
+        disabled.setRobot(this);
+
+
     }
 
+    /*
+     * Teleoperated
+     */
+    public void teleopInit()
+    {
+        teleoperated.init();
+    }
+
+    public void teleopContinuous()
+    {
+        teleoperated.continous();
+    }
+
+    public void teleopPeriodic()
+    {
+        teleoperated.periodic();
+    }
+
+
+    /*
+     * Autonomous
+     */
+    public void autonomousInit()
+    {
+        autonomous.init();
+    }
+
+    public void autonomousContinuous()
+    {
+        autonomous.continous();
+
+    }
+
+    public void autonomousPeriodic()
+    {
+        autonomous.periodic();
+    }
+    
+
+    /*
+     * Disabled
+     */
+    public void disabledInit()
+    {
+        disabled.init();
+    }
+
+    public void disabledContinuous()
+    {
+        disabled.continous();
+    }
+
+    public void disabledPeriodic()
+    {
+        disabled.periodic();
+    }
+
+    /*
+     * Setters/Getters
+     */
     public DriveTrain getDrive(){
         return drive;
     }
@@ -99,89 +185,5 @@ public class MainRobot extends IterativeRobot
     public Gyro getGyro(){
         return gyro;
     }
-    
-
-    /**
-     * This function is run when the robot is first started up
-     */
-    public void robotInit()
-    {
-//        EncoderManagerMain.addEncoder(frontLeftEncoder);
-//        EncoderManagerMain.addEncoder(frontRightEncoder);
-//        EncoderManagerMain.addEncoder(rearLeftEnc);
-//        EncoderManagerMain.addEncoder(rearRightEnc);
-
-    }
-    /**
-     * This function is run when the robot enters disabled mode
-     */
-
-    
-
-    /**
-     * This function is run when the robot is first enters teleop
-     */
-    public void teleopInit()
-    {
-        // Get X and Y Velocity from controller
-        double xVelocity = con1.lStick.getStickX() * Math.abs(con1.lStick.getStickX());
-        double yVelocity = con1.lStick.getStickY() * Math.abs(con1.lStick.getStickY());
-
-        // Get Rotational Velocity from controller
-        double rotationalVelocity = con1.rStick.getStickX() * Math.abs(con1.rStick.getStickX());
-
-        // Get gyro angle
-        double gyroAngle = gyro.getAngle();
-        
-        drive.setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
-    }
-
-    public void teleopPeriodic()
-    {
-        compressor.checkPressure();
-    }
-
-    public void teleopContinuous()
-    {
-
-    }
-
-    /*
-     * Autonomous
-     */
-
-    public void autonomousInit()
-    {
-        autonomous.init();
-    }
-
-    public void autonomousContinuous()
-    {
-        autonomous.continous();
-
-    }
-
-    public void autonomousPeriodic()
-    {
-        autonomous.periodic();
-    }
-    
-
-    public void disabledInit()
-    {
-        //dont care
-    }
-
-    public void disabledPeriodic()
-    {
-        //dont care
-    }
-
-    public void disabledContinuous()
-    {
-        //dont use
-    }
-
-    
     
 }
