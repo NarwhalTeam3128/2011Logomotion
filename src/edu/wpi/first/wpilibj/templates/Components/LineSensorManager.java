@@ -3,15 +3,15 @@
  * and open the template in the editor.
  */
 
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Components;
 import edu.wpi.first.wpilibj.*;
 /**
  *
  * @author MartinP
  */
 public class LineSensorManager {
-    LineSensor[] sensors;
-    LineSensorManager(int[] channel){
+    public LineSensor[] sensors;
+    public LineSensorManager(int[] channel){
 
         if(channel.length == 0){
             throw new java.lang.IllegalArgumentException("Channel Sensors have not been set.");
@@ -22,7 +22,7 @@ public class LineSensorManager {
         }
         
     }
-    LineSensorManager(int[] slot, int[] channel){
+    public LineSensorManager(int[] slot, int[] channel){
         for (int i=0; i== channel.length - 1;i++){
             sensors[i]= new LineSensor(slot[i],channel[i]);
         }

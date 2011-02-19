@@ -1,11 +1,15 @@
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Logic;
+import edu.wpi.first.wpilibj.templates.Logic.Teleoperated;
+import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
  *
  * @author tylercarter
  */
-public class GeneralTeleoperated extends Teleoperated{
+public class Teleoperated extends ICPProtocol{
 
     DriveTrain drive;
 

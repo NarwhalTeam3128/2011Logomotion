@@ -1,4 +1,4 @@
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Components;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;

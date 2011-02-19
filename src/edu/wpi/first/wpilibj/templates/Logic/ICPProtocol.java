@@ -1,4 +1,6 @@
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Logic;
+
+import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
  *

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Components;
 
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  *
  * @author PatrickM
  */
-public class DaTubes {
+public class PneumaticControl {
 
     public void set(boolean on) {
         for (int i = 0; i < this.Valves.length; i++) {

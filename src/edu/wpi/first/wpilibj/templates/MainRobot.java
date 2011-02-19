@@ -8,6 +8,17 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.templates.Logic.Teleoperated;
+import edu.wpi.first.wpilibj.templates.Logic.Disabled;
+import edu.wpi.first.wpilibj.templates.Logic.Autonomous;
+import edu.wpi.first.wpilibj.templates.Logic.ICPProtocol;
+import edu.wpi.first.wpilibj.templates.Components.Arm;
+import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
+import edu.wpi.first.wpilibj.templates.Components.LineSensorManager;
+import edu.wpi.first.wpilibj.templates.Components.ForkLift;
+import edu.wpi.first.wpilibj.templates.Components.EncoderMangager;
+import edu.wpi.first.wpilibj.templates.Components.CompressorManager;
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -84,15 +95,15 @@ public class MainRobot extends IterativeRobot
          */
 
         // Autonomous Code
-        autonomous = new PatrickAutonomous();
+        autonomous = new Autonomous();
         autonomous.setRobot(this);
 
         // Teleoperated Code
-        teleoperated = new GeneralTeleoperated();
+        teleoperated = new Teleoperated();
         teleoperated.setRobot(this);
 
         // Disabled Code
-        disabled = new GenericDisabled();
+        disabled = new Disabled();
         disabled.setRobot(this);
 
 

@@ -1,10 +1,12 @@
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Logic;
+
+import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
  *
  * @author tylercarter
  */
-public class GenericDisabled extends Disabled {
+public class Disabled extends ICPProtocol {
 
     /*
      * This method will be called initally

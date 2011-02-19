@@ -1,7 +1,8 @@
 
 
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Components;
 
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Jaguar;
 
 /**

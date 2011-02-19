@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Components;
 
 import edu.wpi.first.wpilibj.*;
 
@@ -12,22 +12,22 @@ import edu.wpi.first.wpilibj.*;
  */
 public class XboxGamepad extends Joystick
 {
-    Stick rStick;
-    Stick lStick;
-    Button A;
-    Button B;
-    Button X;
-    Button Y;
-    Button Start;
-    Button Back;
-    Button LB;
-    Button RB;
-    DPad pad;
-    Trigger lTrigger;
-    Trigger rTrigger;
+    public Stick rStick;
+    public Stick lStick;
+    public Button A;
+    public Button B;
+    public Button X;
+    public Button Y;
+    public Button Start;
+    public Button Back;
+    public Button LB;
+    public Button RB;
+    public DPad pad;
+    public Trigger lTrigger;
+    public Trigger rTrigger;
 
 
-    XboxGamepad(final int port)
+    public XboxGamepad(final int port)
     {
         super(port);
     }
@@ -55,6 +55,7 @@ public class XboxGamepad extends Joystick
             System.err.println(e.getMessage());
         }
     }
+
     /**
      *
      */

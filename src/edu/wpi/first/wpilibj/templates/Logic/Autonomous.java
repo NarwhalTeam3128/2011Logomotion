@@ -1,11 +1,15 @@
-package edu.wpi.first.wpilibj.templates;
+package edu.wpi.first.wpilibj.templates.Logic;
+import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
+import edu.wpi.first.wpilibj.templates.Components.LineSensorManager;
+import edu.wpi.first.wpilibj.templates.Components.ForkLift;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
  *
  * @author tylercarter
  */
-public class PatrickAutonomous extends Autonomous{
+public class Autonomous extends ICPProtocol{
 
     DriveTrain drive;
     LineSensorManager lineSensors;
