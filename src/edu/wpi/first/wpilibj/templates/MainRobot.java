@@ -26,7 +26,7 @@ public class MainRobot extends IterativeRobot
     CompressorManager compressor;
 
     // Sensors
-    Gyro gyroZ;
+    Gyro gyro;
     LineSensorManager lineSensors;
 
     // Controls
@@ -42,10 +42,8 @@ public class MainRobot extends IterativeRobot
     EncoderMangager EncoderManagerMain = new EncoderMangager();
 
     int[] lineSensorChannels;
-    double autonX;
-    double autonY;
-    double autonRot;
-    boolean ubertube_placed = false;
+
+    Autonomous autonomous;
 
     /**
      * Initialize the robots control parts
@@ -69,6 +67,37 @@ public class MainRobot extends IterativeRobot
         // Arm
         arm = new Arm(7);
         arm.setStick(con2.rStick);
+
+        // Autonomous Code
+        autonomous = new PatrickAutonomous(this);
+    }
+
+    public DriveTrain getDrive(){
+        return drive;
+    }
+
+    public LineSensorManager getLineSensors(){
+        return lineSensors;
+    }
+
+    public XboxGamepad getController1(){
+        return con1;
+    }
+
+    public XboxGamepad getController2(){
+        return con2;
+    }
+
+    public ForkLift getForkLift(){
+        return forkLift;
+    }
+
+    public Arm getArm(){
+        return arm;
+    }
+
+    public Gyro getGyro(){
+        return gyro;
     }
     
 
@@ -86,19 +115,8 @@ public class MainRobot extends IterativeRobot
     /**
      * This function is run when the robot enters disabled mode
      */
-    public void disabledInit()
-    {
-        //dont care
-    }
 
-    /**
-     * This function is run when the robot is first enters autonomous mode
-     */
-    public void autonomousInit()
-    {
-        forkLift.HighDrive();
-        drive.setDrive_Mecanum(autonX, autonY, autonRot,gyroZ.getAngle());
-    }
+    
 
     /**
      * This function is run when the robot is first enters teleop
@@ -113,87 +131,55 @@ public class MainRobot extends IterativeRobot
         double rotationalVelocity = con1.rStick.getStickX() * Math.abs(con1.rStick.getStickX());
 
         // Get gyro angle
-        double gyroAngle = gyroZ.getAngle();
+        double gyroAngle = gyro.getAngle();
         
         drive.setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
     }
 
-    /**
-     * This function is called periodically(every 1-2 seconds) during disabled mode
-     */
-    public void disabledPeriodic()
-    {
-        //dont care
-    }
-
-    /**
-     * This function is called periodically(every 1-2 seconds) during autonomous
-     */
-    public void autonomousPeriodic()
-    {
-        compressor.checkPressure();
-    }
-
-    /**
-     * This function is called periodically(every 1-2 seconds) during teleop
-     */
     public void teleopPeriodic()
     {
         compressor.checkPressure();
     }
 
-    /**
-     * This function is called continuously(really fast) during disabled mode
-     */
-    public void disabledContinuous()
-    {
-        //dont use
-    }
-
-    /**
-     * This function is called continuously(really fast) during autonomous
-     */
-    public void autonomousContinuous()
-    {
-        if (ubertube_placed)
-        {
-
-        }
-        else if(lineSensors.sensors[1].getValue() & lineSensors.sensors[2].getValue() & lineSensors.sensors[3].getValue())
-        {
-            placeUberTube();
-        }
-        else if(lineSensors.getlinelocation() == null ? "left" == null : lineSensors.getlinelocation().equals("left"))
-        {
-            autonY = -0.3;
-        }
-        else if (lineSensors.getlinelocation() == null ? "right" == null : lineSensors.getlinelocation().equals("right")){
-            autonY = 0.3;
-        }
-        else if (lineSensors.getlinelocation() == null ? "ahead" == null : lineSensors.getlinelocation().equals("ahead")){
-            autonX = 0.3;
-            autonY = 0;
-        }
-
-    }
-
-    /**
-     * This function is called continuously(really fast) during teleop
-     */
-
     public void teleopContinuous()
     {
-        
+
     }
 
     /*
-     * This Function places the ubertube in autoimus
+     * Autonomous
      */
-    public void placeUberTube()
-    {
-        //codehere
-        ubertube_placed = true ;
 
+    public void autonomousInit()
+    {
+        autonomous.init();
+    }
+
+    public void autonomousContinuous()
+    {
+        autonomous.continous();
+
+    }
+
+    public void autonomousPeriodic()
+    {
+        autonomous.periodic();
+    }
+    
+
+    public void disabledInit()
+    {
+        //dont care
+    }
+
+    public void disabledPeriodic()
+    {
+        //dont care
+    }
+
+    public void disabledContinuous()
+    {
+        //dont use
     }
 
     
