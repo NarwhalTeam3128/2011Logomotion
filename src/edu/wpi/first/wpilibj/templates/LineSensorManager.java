@@ -12,9 +12,15 @@ import edu.wpi.first.wpilibj.*;
 public class LineSensorManager {
     LineSensor[] sensors;
     LineSensorManager(int[] channel){
+
+        if(channel.length == 0){
+            throw new java.lang.IllegalArgumentException("Channel Sensors have not been set.");
+        }
+
         for (int i=0; i== channel.length - 1;i++){
             sensors[i]= new LineSensor(channel[i]);
         }
+        
     }
     LineSensorManager(int[] slot, int[] channel){
         for (int i=0; i== channel.length - 1;i++){
