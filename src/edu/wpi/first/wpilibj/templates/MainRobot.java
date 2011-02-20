@@ -88,19 +88,19 @@ public class MainRobot extends IterativeRobot
         dashboard = new SimpleDashboard();
         gyro = new Gyro(1);
         compressor = new CompressorManager(6,5,4,1);
-    }
-    
-    public void robotInit()
-    {
+
 //        EncoderManagerMain.addEncoder(frontLeftEncoder);
 //        EncoderManagerMain.addEncoder(frontRightEncoder);
 //        EncoderManagerMain.addEncoder(rearLeftEnc);
 //        EncoderManagerMain.addEncoder(rearRightEnc);
 
+
+
+
         /*
          * Game Section Modules
          */
-
+        
         // Autonomous Code
         autonomous = new Autonomous();
         autonomous.setRobot(this);
@@ -112,8 +112,10 @@ public class MainRobot extends IterativeRobot
         // Disabled Code
         disabled = new Disabled();
         disabled.setRobot(this);
-
-
+    }
+    
+    public void robotInit()
+    {
     }
 
     /*
