@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.templates.Dashboard.SimpleDashboard;
 
 
 /**
@@ -58,6 +59,8 @@ public class MainRobot extends IterativeRobot
     ICPProtocol teleoperated;
     ICPProtocol disabled;
 
+    SimpleDashboard dashboard;
+
     /**
      * Initialize the robots control parts
      */
@@ -80,6 +83,8 @@ public class MainRobot extends IterativeRobot
         // Arm
         arm = new Arm(7);
         arm.setStick(con2.rStick);
+
+        dashboard = new SimpleDashboard();
 
     }
     
@@ -120,6 +125,7 @@ public class MainRobot extends IterativeRobot
     public void teleopContinuous()
     {
         teleoperated.continous();
+        dashboard.update();
     }
 
     public void teleopPeriodic()
@@ -139,6 +145,7 @@ public class MainRobot extends IterativeRobot
     public void autonomousContinuous()
     {
         autonomous.continous();
+        dashboard.update();
 
     }
 
