@@ -30,30 +30,18 @@ public class Teleoperated extends ICPProtocol{
     public void init(){
 
         compressor.comp.start();
-        forkLift.ForkLiftMotor1.set(con2.lStick.getStickY()*Math.abs(con2.lStick.getStickY())*-1);
-        forkLift.ForkLiftMotor2.set(con2.lStick.getStickY()*Math.abs(con2.lStick.getStickY()));
 
-        // Get X and Y Velocity from controller
-        double xVelocity = con1.lStick.getStickX() * Math.abs(con1.lStick.getStickX());
-        double yVelocity = con1.lStick.getStickY() * Math.abs(con1.lStick.getStickY());
-
-        // Get Rotational Velocity from controller
-        double rotationalVelocity = con1.rStick.getStickX() * Math.abs(con1.rStick.getStickX());
-
-        // Get gyro angle
-        double gyroAngle = gyro.getAngle();
-
-        drive.setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
-
-
-
+        setDrive();
+        setForklift();
     }
+
 
     /*
      * This method will be called continously
      */
     public void continuous(){
-
+        setDrive();
+        setForklift();
     }
 
     /*
@@ -73,5 +61,33 @@ public class Teleoperated extends ICPProtocol{
         gyro = r.getGyro();
         forkLift = r.getForkLift();
         compressor = r.getCompressor();
+    }
+
+    /*
+     * Sets the Wheels in the right direction
+     */
+    public void setDrive(){
+
+        // Get X and Y Velocity from controller
+        double xVelocity = con1.lStick.getStickX() * Math.abs(con1.lStick.getStickX());
+        double yVelocity = con1.lStick.getStickY() * Math.abs(con1.lStick.getStickY());
+
+        // Get Rotational Velocity from controller
+        double rotationalVelocity = con1.rStick.getStickX() * Math.abs(con1.rStick.getStickX());
+
+        // Get gyro angle
+        double gyroAngle = gyro.getAngle();
+
+        drive.setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
+
+    }
+
+    public void setForklift(){
+
+        double speed = con2.lStick.getStickY()*Math.abs(con2.lStick.getStickY());
+
+        forkLift.ForkLiftMotor1.set(speed);
+        forkLift.ForkLiftMotor2.set(speed * -1);
+        
     }
 }
