@@ -3,6 +3,8 @@ import edu.wpi.first.wpilibj.templates.Logic.Teleoperated;
 import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Joystick.ButtonType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.templates.Components.CompressorManager;
 import edu.wpi.first.wpilibj.templates.Components.ForkLift;
 import edu.wpi.first.wpilibj.templates.MainRobot;
@@ -24,6 +26,8 @@ public class Teleoperated extends ICPProtocol{
     XboxGamepad con1;
     XboxGamepad con2;
 
+    Solenoid solenoid;
+
     /*
      * This method will be called initally
      */
@@ -40,6 +44,12 @@ public class Teleoperated extends ICPProtocol{
      * This method will be called continously
      */
     public void continuous(){
+        if(con1.A.getIsPressed()){
+            solenoid.set(true);
+        }else{
+            solenoid.set(false);
+        }
+
         setDrive();
         setForklift();
     }
