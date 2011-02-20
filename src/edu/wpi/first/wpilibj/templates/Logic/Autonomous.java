@@ -16,11 +16,11 @@ public class Autonomous extends ICPProtocol{
     ForkLift forkLift;
     Gyro gyro;
 
+    public int state;
+
     double autonX;
     double autonY;
     double autonRot;
-
-    boolean ubertube_placed = false;
 
     public void setRobot(MainRobot r){
         drive = r.getDrive();
@@ -38,38 +38,57 @@ public class Autonomous extends ICPProtocol{
         //compressor.checkPressure();
     }
 
-    public void continuous(){
-        
-        if (ubertube_placed)
+    public void continuous()
+    {
+        if(state == 0)
         {
-
+            autonY=1;
+            followLine();
         }
-        else if(lineSensors.sensors[1].getValue() & lineSensors.sensors[2].getValue() & lineSensors.sensors[3].getValue())
+        else if(state == 1)
         {
-            placeUberTube();
+            
         }
-        else if(lineSensors.getlinelocation() == null ? "left" == null : lineSensors.getlinelocation().equals("left"))
-        {
-            autonY = -0.3;
-        }
-        else if (lineSensors.getlinelocation() == null ? "right" == null : lineSensors.getlinelocation().equals("right")){
-            autonY = 0.3;
-        }
-        else if (lineSensors.getlinelocation() == null ? "ahead" == null : lineSensors.getlinelocation().equals("ahead")){
-            autonX = 0.3;
-            autonY = 0;
-        }
-        
     }
 
     /*
-     * This Function places the ubertube in autoimus
+     * This Function follows the line for quite a few feet.
      */
-    public void placeUberTube()
+    public void followLine()
     {
-        //codehere
-        ubertube_placed = true ;
-
+        //Stop Spot
+        if(lineSensors.getlinelocation()==0)
+        {
+            autonRot = 0.0;
+            autonY = 0;
+            state = 1;
+        }
+        //Left+Mid
+        else if(lineSensors.getlinelocation()==1)
+        {
+            autonRot = -1;
+        }
+        //Right+Mid
+        else if(lineSensors.getlinelocation()==2)
+        {
+            autonRot = 1;
+        }
+        //Left Only
+        else if(lineSensors.getlinelocation()==3)
+        {
+            autonRot = -1;
+        }
+        //Right Only
+        else if(lineSensors.getlinelocation()==4)
+        {
+            autonRot = 1;
+        }
+        //Mid Only
+        else if(lineSensors.getlinelocation()==5)
+        {
+            autonRot = 0;
+        }
+        drive.setDrive_Mecanum(autonY,0,autonRot,gyro.getAngle());
     }
 
 }

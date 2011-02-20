@@ -38,14 +38,39 @@ public class LineSensorManager {
             return get();
         }
     }
-    public String getlinelocation(){
-        if (sensors[0].getValue()){
-            return "left";
-        }else if(sensors[1].getValue()){
-            return "ahead";
-        }else if(sensors[2].getValue()){
-            return "right";
-        } else {return "err";}
+    //0=Mid
+    //1=Left
+    //2=Right
+    public int getlinelocation()
+    {
+        if (sensors[0].getValue() && sensors[1].getValue() && sensors[2].getValue())
+        {
+            return 0;
+        }
+        else if(sensors[0].getValue() && sensors[1].getValue() && !sensors[2].getValue())
+        {
+            return 1;
+        }
+        else if(sensors[0].getValue() && !sensors[1].getValue() && sensors[2].getValue())
+        {
+            return 2;
+        }
+        else if(!sensors[0].getValue() && sensors[1].getValue() && !sensors[2].getValue())
+        {
+            return 3;
+        }
+        else if(!sensors[0].getValue() && !sensors[1].getValue() && sensors[2].getValue())
+        {
+            return 4;
+        }
+        else if(sensors[0].getValue() && !sensors[1].getValue() && !sensors[2].getValue())
+        {
+            return 5;
+        }
+        else
+        {
+            return 2;
+        }
 
 
     }
