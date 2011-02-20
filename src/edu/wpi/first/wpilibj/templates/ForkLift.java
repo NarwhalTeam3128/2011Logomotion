@@ -33,6 +33,12 @@ public class ForkLift {
         ForkLiftEncoder.reset();
 
     }
+
+    public ForkLift()
+    {
+        ForkLiftMotor1 = new Jaguar(5);
+        ForkLiftMotor2 = new Jaguar(6);
+    }
     /*
      * The method for the motor to lift the drawerslide to the low height setting
      * starts the motor at an arbitrary speed, when the encoder hits a test value,
@@ -105,7 +111,7 @@ public class ForkLift {
 
     public void setDrive(XboxGamepad.Stick s)
     {
-        ForkLiftMotor1.set(s.getStickY());
-        ForkLiftMotor2.set(s.getStickY());
+        ForkLiftMotor1.set(s.getStickY()/4);
+        ForkLiftMotor2.set(s.getStickY()/4);
     }
 }

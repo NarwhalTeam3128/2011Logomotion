@@ -11,6 +11,7 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Relay;
 
 
 /**
@@ -36,10 +37,10 @@ public class MainRobot extends IterativeRobot
     Arm arm;
     
     // Encoders
-    Encoder frontLeftEncoder = new Encoder(1,1,2,2);
-    Encoder frontRightEncoder = new Encoder(3,3,4,4);
-    Encoder forkLiftEncoder = new Encoder(5,5,6,6);
-    EncoderMangager EncoderManagerMain = new EncoderMangager();
+    //Encoder frontLeftEncoder = new Encoder(1,1,2,2);
+    //Encoder frontRightEncoder = new Encoder(3,3,4,4);
+    //Encoder forkLiftEncoder = new Encoder(5,5,5,6);
+    //EncoderMangager EncoderManagerMain = new EncoderMangager();
 
     int[] lineSensorChannels;
     double autonX;
@@ -53,7 +54,7 @@ public class MainRobot extends IterativeRobot
     public MainRobot()
     {
         drive = new DriveTrain(1,3,2,4);
-        lineSensors = new LineSensorManager(lineSensorChannels);
+        //lineSensors = new LineSensorManager(lineSensorChannels);
         //compressor = new BlowholePnumaticCompressorManager();
 
         // Controllers
@@ -64,11 +65,14 @@ public class MainRobot extends IterativeRobot
         con2.controllerSetup();
 
         // Forklift
-        forkLift = new ForkLift(forkLiftEncoder);
+        forkLift = new ForkLift();
 
         // Arm
         arm = new Arm(7);
         arm.setStick(con2.rStick);
+
+        gyroZ = new Gyro(1);
+        compressor = new CompressorManager(6,5,4,1);
     }
     
 
@@ -105,17 +109,13 @@ public class MainRobot extends IterativeRobot
      */
     public void teleopInit()
     {
-        // Get X and Y Velocity from controller
-        double xVelocity = con1.lStick.getStickX() * Math.abs(con1.lStick.getStickX());
-        double yVelocity = con1.lStick.getStickY() * Math.abs(con1.lStick.getStickY());
 
-        // Get Rotational Velocity from controller
-        double rotationalVelocity = con1.rStick.getStickX() * Math.abs(con1.rStick.getStickX());
 
-        // Get gyro angle
-        double gyroAngle = gyroZ.getAngle();
+        //Relay r = new Relay(6,1);
+        //r.set(Relay.Value.kForward);
         
-        drive.setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
+
+        
     }
 
     /**
@@ -131,7 +131,7 @@ public class MainRobot extends IterativeRobot
      */
     public void autonomousPeriodic()
     {
-        compressor.checkPressure();
+        //compressor.comp.start();
     }
 
     /**
@@ -139,7 +139,7 @@ public class MainRobot extends IterativeRobot
      */
     public void teleopPeriodic()
     {
-        compressor.checkPressure();
+        //compressor.comp.start();
     }
 
     /**
@@ -183,7 +183,22 @@ public class MainRobot extends IterativeRobot
 
     public void teleopContinuous()
     {
+        compressor.comp.start();
+        forkLift.ForkLiftMotor1.set(con2.lStick.getStickY()*Math.abs(con2.lStick.getStickY())*-1);
+        forkLift.ForkLiftMotor2.set(con2.lStick.getStickY()*Math.abs(con2.lStick.getStickY()));
         
+        // Get X and Y Velocity from controller
+        double xVelocity = con1.lStick.getStickX() * Math.abs(con1.lStick.getStickX());
+        double yVelocity = con1.lStick.getStickY() * Math.abs(con1.lStick.getStickY());
+
+        // Get Rotational Velocity from controller
+        double rotationalVelocity = con1.rStick.getStickX() * Math.abs(con1.rStick.getStickX());
+
+        // Get gyro angle
+        double gyroAngle = gyroZ.getAngle();
+
+        drive.setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
+
     }
 
     /*
