@@ -35,6 +35,8 @@ public class Teleoperated extends ICPProtocol{
 
         compressor.comp.start();
 
+        solenoid = new Solenoid(8);
+
         setDrive();
         setForklift();
     }
