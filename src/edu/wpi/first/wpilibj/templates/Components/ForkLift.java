@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.Jaguar;
  * @author Dennis Shen
  */
 public class ForkLift {
-    Jaguar ForkLiftMotor1;
-    Jaguar ForkLiftMotor2;
-    Encoder ForkLiftEncoder;
+    public Jaguar ForkLiftMotor1;
+    public Jaguar ForkLiftMotor2;
+    public Encoder ForkLiftEncoder;
     double LowSettingEncodervalue;//Arbitrary encoder value for the Low Height 
     double MidSettingEncodervalue;//Arbitrary encoder value for the Mid Height
     double HighSettingEncodervalue;//Arbitrary encoder value for the High Height
@@ -33,6 +33,12 @@ public class ForkLift {
         ForkLiftEncoder.start();
         ForkLiftEncoder.reset();
 
+    }
+
+    public ForkLift()
+    {
+        ForkLiftMotor1 = new Jaguar(5);
+        ForkLiftMotor2 = new Jaguar(6);
     }
     /*
      * The method for the motor to lift the drawerslide to the low height setting
@@ -106,7 +112,7 @@ public class ForkLift {
 
     public void setDrive(XboxGamepad.Stick s)
     {
-        ForkLiftMotor1.set(s.getStickY());
-        ForkLiftMotor2.set(s.getStickY());
+        ForkLiftMotor1.set(s.getStickY()/4);
+        ForkLiftMotor2.set(s.getStickY()/4);
     }
 }

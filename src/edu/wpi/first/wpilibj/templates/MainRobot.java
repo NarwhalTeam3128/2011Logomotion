@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.templates.Dashboard.SimpleDashboard;
+import edu.wpi.first.wpilibj.Relay;
 
 
 /**
@@ -48,10 +49,10 @@ public class MainRobot extends IterativeRobot
     Arm arm;
     
     // Encoders
-    Encoder frontLeftEncoder = new Encoder(1,1,2,2);
-    Encoder frontRightEncoder = new Encoder(3,3,4,4);
-    Encoder forkLiftEncoder = new Encoder(5,5,6,6);
-    EncoderMangager EncoderManagerMain = new EncoderMangager();
+    //Encoder frontLeftEncoder = new Encoder(1,1,2,2);
+    //Encoder frontRightEncoder = new Encoder(3,3,4,4);
+    //Encoder forkLiftEncoder = new Encoder(5,5,5,6);
+    //EncoderMangager EncoderManagerMain = new EncoderMangager();
 
     int[] lineSensorChannels;
 
@@ -67,7 +68,7 @@ public class MainRobot extends IterativeRobot
     public MainRobot()
     {
         drive = new DriveTrain(1,3,2,4);
-        lineSensors = new LineSensorManager(lineSensorChannels);
+        //lineSensors = new LineSensorManager(lineSensorChannels);
         //compressor = new BlowholePnumaticCompressorManager();
 
         // Controllers
@@ -78,14 +79,15 @@ public class MainRobot extends IterativeRobot
         con2.controllerSetup();
 
         // Forklift
-        forkLift = new ForkLift(forkLiftEncoder);
+        forkLift = new ForkLift();
 
         // Arm
         arm = new Arm(7);
         arm.setStick(con2.rStick);
 
         dashboard = new SimpleDashboard();
-
+        gyro = new Gyro(1);
+        compressor = new CompressorManager(6,5,4,1);
     }
     
     public void robotInit()
@@ -183,7 +185,7 @@ public class MainRobot extends IterativeRobot
     public LineSensorManager getLineSensors(){
         return lineSensors;
     }
-
+    
     public XboxGamepad getController1(){
         return con1;
     }
@@ -202,6 +204,10 @@ public class MainRobot extends IterativeRobot
 
     public Gyro getGyro(){
         return gyro;
+    }
+
+    public CompressorManager getCompressor(){
+        return compressor;
     }
     
 }
