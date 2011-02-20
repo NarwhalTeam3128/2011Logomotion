@@ -3,6 +3,7 @@ import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
 import edu.wpi.first.wpilibj.templates.Components.LineSensorManager;
 import edu.wpi.first.wpilibj.templates.Components.ForkLift;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
@@ -15,6 +16,8 @@ public class Autonomous extends ICPProtocol{
     LineSensorManager lineSensors;
     ForkLift forkLift;
     Gyro gyro;
+
+    public double timer;
 
     public int state;
 
@@ -31,6 +34,7 @@ public class Autonomous extends ICPProtocol{
     public void init(){
         forkLift.HighDrive();
         drive.setDrive_Mecanum(autonX, autonY, autonRot, gyro.getAngle());
+        timer = Timer.getFPGATimestamp();
     }
 
     public void periodic(){
@@ -47,7 +51,7 @@ public class Autonomous extends ICPProtocol{
         }
         else if(state == 1)
         {
-            
+            //driveBackwardsABit();
         }
     }
 
