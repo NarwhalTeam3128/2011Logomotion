@@ -112,7 +112,7 @@ public class ForkLift {
 
     public void setDrive(XboxGamepad.Stick s)
     {
-        ForkLiftMotor1.set(s.getStickY()/4);
-        ForkLiftMotor2.set(s.getStickY()/4);
+        ForkLiftMotor1.set(s.getStickY()/2);
+        ForkLiftMotor2.set(s.getStickY()/2);
     }
 }

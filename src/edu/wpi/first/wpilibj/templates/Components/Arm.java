@@ -19,6 +19,6 @@ public class Arm
 
     public void setStick(XboxGamepad.Stick st)
     {
-        motor.set(st.getStickY());
+        motor.set(st.getStickY()/4);
     }
 }
