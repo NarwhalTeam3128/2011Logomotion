@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick.ButtonType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.templates.Components.Arm;
 import edu.wpi.first.wpilibj.templates.Components.CompressorManager;
 import edu.wpi.first.wpilibj.templates.Components.ForkLift;
 import edu.wpi.first.wpilibj.templates.MainRobot;
@@ -27,6 +28,7 @@ public class Teleoperated extends ICPProtocol{
     XboxGamepad con2;
 
     Solenoid solenoid;
+    Arm arm;
 
     /*
      * This method will be called initally
@@ -71,6 +73,7 @@ public class Teleoperated extends ICPProtocol{
         gyro = r.getGyro();
         forkLift = r.getForkLift();
         compressor = r.getCompressor();
+        arm = r.getArm();
     }
 
     /*
@@ -99,5 +102,9 @@ public class Teleoperated extends ICPProtocol{
         forkLift.ForkLiftMotor1.set(speed);
         forkLift.ForkLiftMotor2.set(speed * -1);
         
+    }
+
+    public void setArm(){
+        arm.setStick(con2.rStick);
     }
 }
