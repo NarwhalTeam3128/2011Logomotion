@@ -38,7 +38,7 @@ public class Autonomous extends ICPProtocol{
         //compressor.checkPressure();
     }
 
-    public void continous(){
+    public void continuous(){
         
         if (ubertube_placed)
         {

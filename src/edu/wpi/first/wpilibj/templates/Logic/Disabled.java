@@ -18,7 +18,7 @@ public class Disabled extends ICPProtocol {
     /*
      * This method will be called continously
      */
-    public void continous(){
+    public void continuous(){
         throw new RuntimeException("Not Implemented");
     }
 

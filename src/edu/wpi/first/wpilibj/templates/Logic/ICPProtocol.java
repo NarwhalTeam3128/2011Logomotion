@@ -16,7 +16,7 @@ public abstract class ICPProtocol {
     /*
      * This method will be called continously
      */
-    public abstract void continous();
+    public abstract void continuous();
 
     /*
      * This method will be called periodically

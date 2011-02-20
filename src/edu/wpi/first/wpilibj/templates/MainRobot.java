@@ -128,7 +128,7 @@ public class MainRobot extends IterativeRobot
 
     public void teleopContinuous()
     {
-        teleoperated.continous();
+        teleoperated.continuous();
         dashboard.update();
     }
 
@@ -148,7 +148,7 @@ public class MainRobot extends IterativeRobot
 
     public void autonomousContinuous()
     {
-        autonomous.continous();
+        autonomous.continuous();
         dashboard.update();
 
     }
@@ -169,7 +169,7 @@ public class MainRobot extends IterativeRobot
 
     public void disabledContinuous()
     {
-        disabled.continous();
+        disabled.continuous();
     }
 
     public void disabledPeriodic()

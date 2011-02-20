@@ -52,7 +52,7 @@ public class Teleoperated extends ICPProtocol{
     /*
      * This method will be called continously
      */
-    public void continous(){
+    public void continuous(){
 
     }
 
