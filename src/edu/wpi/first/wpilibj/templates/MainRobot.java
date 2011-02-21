@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.templates.Dashboard.SimpleDashboard;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Solenoid;
 
 
 /**
@@ -62,6 +63,8 @@ public class MainRobot extends IterativeRobot
 
     SimpleDashboard dashboard;
 
+    Solenoid solenoid;
+
     /**
      * Initialize the robots control parts
      */
@@ -87,8 +90,9 @@ public class MainRobot extends IterativeRobot
 
         dashboard = new SimpleDashboard();
         gyro = new Gyro(1);
-        compressor = new CompressorManager(6,5,4,1);
+        compressor = new CompressorManager(1,1);
 
+        solenoid = new Solenoid(8);
 //        EncoderManagerMain.addEncoder(frontLeftEncoder);
 //        EncoderManagerMain.addEncoder(frontRightEncoder);
 //        EncoderManagerMain.addEncoder(rearLeftEnc);
@@ -211,5 +215,9 @@ public class MainRobot extends IterativeRobot
     public CompressorManager getCompressor(){
         return compressor;
     }
-    
+
+    public Solenoid getSolenoid()
+    {
+        return solenoid;
+    }
 }

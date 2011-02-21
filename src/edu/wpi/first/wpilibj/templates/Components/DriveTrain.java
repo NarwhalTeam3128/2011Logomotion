@@ -1,9 +1,7 @@
 package edu.wpi.first.wpilibj.templates.Components;
-
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Timer;
-
 /**
  *
  * @author GarrisonP
