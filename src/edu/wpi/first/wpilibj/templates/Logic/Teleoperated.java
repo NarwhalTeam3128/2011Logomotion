@@ -53,12 +53,12 @@ public class Teleoperated extends ICPProtocol{
      * This method will be called continously
      */
     public void continuous(){
-        if(con1.A.getIsPressed()){
+        if(con1.A.isPressed()){
             solenoid.set(true);
         }else{
             solenoid.set(false);
         }
-        if(con1.Back.getIsPressed())
+        if(con1.Back.isPressed())
         {
             compressor.comp.start();
         }
@@ -66,7 +66,7 @@ public class Teleoperated extends ICPProtocol{
         {
             compressor.comp.stop();
         }
-        if(con2.LB.getIsPressed() && con2.RB.getIsPressed() && con2.B.getIsPressed())
+        if(con2.LB.isPressed() && con2.RB.isPressed() && con2.B.isPressed())
         {
             try {
                 timer.wait(300000000);

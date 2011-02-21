@@ -8,6 +8,7 @@ package edu.wpi.first.wpilibj.templates.Components;
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Button;
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Stick;
 import edu.wpi.first.wpilibj.templates.Controls;
 
@@ -22,8 +23,12 @@ public class ForkLift {
     double LowSettingEncodervalue;//Arbitrary encoder value for the Low Height 
     double MidSettingEncodervalue;//Arbitrary encoder value for the Mid Height
     double HighSettingEncodervalue;//Arbitrary encoder value for the High Height
-    private Stick stick;
+
+    
     private int controllerType;
+    private Stick stick;
+    private Button buttonUp;
+    private Button buttonDown;
     
     
     /*random channel for the motor. Change to whatever is configured
@@ -117,16 +122,33 @@ public class ForkLift {
     public void update()
     {
         if(controllerType == Controls.STICK){
-
             double speed = stick.getStickY() * Math.abs(stick.getStickY());
 
             ForkLiftMotor1.set(speed);
             ForkLiftMotor2.set(speed * -1);
+        }
+        else if(controllerType == Controls.BUTTON){
+
+            if(buttonUp.isPressed()){
+                ForkLiftMotor1.set(1);
+                ForkLiftMotor2.set(-1);
+            }
+            else if(buttonDown.isPressed()){
+                ForkLiftMotor1.set(-1);
+                ForkLiftMotor2.set(1);
+            }
+
         }
     }
 
     public void setController(XboxGamepad.Stick st){
         stick = st;
         controllerType = Controls.STICK;
+    }
+
+    public void setController(XboxGamepad.Button up, XboxGamepad.Button down){
+        buttonUp = up;
+        buttonDown = down;
+        controllerType = Controls.BUTTON;
     }
 }

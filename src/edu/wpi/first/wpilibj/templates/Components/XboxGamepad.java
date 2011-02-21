@@ -209,7 +209,7 @@ public class XboxGamepad extends Joystick
          *
          * @return
          */
-        public boolean getIsPressed()
+        public boolean isPressed()
         {
             return getRawButton(this.button);
         }
