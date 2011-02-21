@@ -294,8 +294,8 @@ public class DriveTrain
     public void update()
     {
         // Get X and Y Velocity from controller
-        double xVelocity = steerController.getStickX() * Math.abs(steerController.getStickX());
-        double yVelocity = steerController.getStickY() * Math.abs(steerController.getStickY());
+        double yVelocity = steerController.getStickX() * Math.abs(steerController.getStickX());
+        double xVelocity = steerController.getStickY() * Math.abs(steerController.getStickY());
 
         // Get Rotational Velocity from controller
         double rotationalVelocity = turnController.getStickX() * Math.abs(turnController.getStickX());
