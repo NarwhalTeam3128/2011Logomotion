@@ -53,8 +53,6 @@ public class Teleoperated extends ICPProtocol{
      * This method will be called continously
      */
     public void continuous(){
-        con1.pad.getLeftRight();
-        con1.pad.getUpDown();
 
         if(con1.A.isPressed()){
             solenoid.set(true);

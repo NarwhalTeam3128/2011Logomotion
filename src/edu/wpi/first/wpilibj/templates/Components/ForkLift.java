@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Button;
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.DPad;
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Stick;
 import edu.wpi.first.wpilibj.templates.Controls;
 
@@ -29,6 +30,7 @@ public class ForkLift {
     private Stick stick;
     private Button buttonUp;
     private Button buttonDown;
+    private DPad pad;
     
     
     /*random channel for the motor. Change to whatever is configured
@@ -145,6 +147,27 @@ public class ForkLift {
             }
 
         }
+        else if(controllerType == Controls.PAD){
+
+            if(pad.getUpDown() > 0){
+                ForkLiftMotor1.set(1);
+                ForkLiftMotor2.set(-1);
+            }
+            else if(pad.getUpDown() < 0){
+                ForkLiftMotor1.set(-1);
+                ForkLiftMotor2.set(1);
+            }
+            else{
+                ForkLiftMotor1.set(0);
+                ForkLiftMotor2.set(0);
+            }
+
+        }
+    }
+
+    public void setController(XboxGamepad.DPad p){
+        pad = p;
+        controllerType = Controls.PAD;
     }
 
     public void setController(XboxGamepad.Stick st){
