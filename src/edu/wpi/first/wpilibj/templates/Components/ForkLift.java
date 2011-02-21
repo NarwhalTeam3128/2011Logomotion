@@ -149,12 +149,12 @@ public class ForkLift {
         }
         else if(controllerType == Controls.PAD){
 
-            if(pad.getUpDown() > 0){
+            if(pad.getLeftRight() > 0){
                 System.out.println("Up");
                 ForkLiftMotor1.set(1);
                 ForkLiftMotor2.set(-1);
             }
-            else if(pad.getUpDown() < 0){
+            else if(pad.getLeftRight() < 0){
                 System.out.println("Down");
                 ForkLiftMotor1.set(-1);
                 ForkLiftMotor2.set(1);

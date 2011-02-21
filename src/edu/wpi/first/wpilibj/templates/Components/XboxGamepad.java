@@ -148,7 +148,7 @@ public class XboxGamepad extends Joystick
          */
         public double getUpDown()
         {
-            System.out.println(getRawAxis(6));
+            System.out.println(getRawAxis(7));
             return getRawAxis(7);
         }
     }
