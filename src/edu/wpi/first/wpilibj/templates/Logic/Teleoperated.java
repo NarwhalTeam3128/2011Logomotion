@@ -1,4 +1,5 @@
 package edu.wpi.first.wpilibj.templates.Logic;
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.templates.Logic.Teleoperated;
 import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
@@ -34,15 +35,13 @@ public class Teleoperated extends ICPProtocol{
     Timer timer = new Timer();
     public double zeroT;
     public double epicT;
+    private Jaguar minibot;
+    private boolean placed = false;
 
     /*
      * This method will be called initally
      */
     public void init(){
-
-        
-
-        
         setArm();
         setDrive();
         setForklift();
@@ -67,14 +66,18 @@ public class Teleoperated extends ICPProtocol{
         {
             compressor.comp.stop();
         }
-        if(con2.LB.isPressed() && con2.RB.isPressed() && con2.B.isPressed())
+        
+        if(con2.LB.isPressed() && con2.RB.isPressed() && placed == false)
         {
             try {
+                minibot.set(1);
                 timer.wait(300000000);
-                deployMinibot();
+                minibot.set(0);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
+            minibot.set(0);
+            placed = true;
         }
         setArm();
         setDrive();
@@ -100,6 +103,7 @@ public class Teleoperated extends ICPProtocol{
         compressor = r.getCompressor();
         arm = r.getArm();
         solenoid = r.getSolenoid();
+        minibot = r.getMinibot();
     }
 
     /*

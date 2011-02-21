@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.templates.Dashboard.SimpleDashboard;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -64,6 +65,7 @@ public class MainRobot extends IterativeRobot
     SimpleDashboard dashboard;
 
     Solenoid solenoid;
+    private final Jaguar minibot;
 
     /**
      * Initialize the robots control parts
@@ -100,7 +102,8 @@ public class MainRobot extends IterativeRobot
 //        EncoderManagerMain.addEncoder(rearLeftEnc);
 //        EncoderManagerMain.addEncoder(rearRightEnc);
 
-
+        // Minibot
+        minibot = new Jaguar(8);
 
 
         /*
@@ -234,5 +237,9 @@ public class MainRobot extends IterativeRobot
     public Solenoid getSolenoid()
     {
         return solenoid;
+    }
+
+    public Jaguar getMinibot(){
+        return minibot;
     }
 }
