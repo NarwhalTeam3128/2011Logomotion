@@ -150,18 +150,24 @@ public class ForkLift {
         else if(controllerType == Controls.PAD){
 
             if(pad.getUpDown() > 0){
+                System.out.println("Up");
                 ForkLiftMotor1.set(1);
                 ForkLiftMotor2.set(-1);
             }
             else if(pad.getUpDown() < 0){
+                System.out.println("Down");
                 ForkLiftMotor1.set(-1);
                 ForkLiftMotor2.set(1);
             }
             else{
+                System.out.println("Stop");
                 ForkLiftMotor1.set(0);
                 ForkLiftMotor2.set(0);
             }
 
+        }
+        else{
+            throw new RuntimeException("No Controller Selected");
         }
     }
 
