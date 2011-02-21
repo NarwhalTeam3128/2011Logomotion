@@ -86,7 +86,7 @@ public class MainRobot extends IterativeRobot
 
         // Arm
         arm = new Arm(7);
-        arm.setStick(con2.rStick);
+        arm.setController(con2.rStick);
 
         dashboard = new SimpleDashboard();
         gyro = new Gyro(1);
