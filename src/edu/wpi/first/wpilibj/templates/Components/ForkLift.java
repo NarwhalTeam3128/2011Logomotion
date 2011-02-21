@@ -133,9 +133,15 @@ public class ForkLift {
                 ForkLiftMotor1.set(1);
                 ForkLiftMotor2.set(-1);
             }
+
             else if(buttonDown.isPressed()){
                 ForkLiftMotor1.set(-1);
                 ForkLiftMotor2.set(1);
+            }
+
+            else{
+                ForkLiftMotor1.set(0);
+                ForkLiftMotor2.set(0);
             }
 
         }
