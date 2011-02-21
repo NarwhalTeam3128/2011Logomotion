@@ -83,12 +83,9 @@ public class MainRobot extends IterativeRobot
 
         // Forklift
         forkLift = new ForkLift();
-        //forkLift.setController(con2.lStick);
-        forkLift.setController(con1.pad);
 
         // Arm
         arm = new Arm(7);
-        arm.setController(con2.rStick);
 
         dashboard = new SimpleDashboard();
         gyro = new Gyro(1);
@@ -118,6 +115,18 @@ public class MainRobot extends IterativeRobot
         // Disabled Code
         disabled = new Disabled();
         disabled.setRobot(this);
+
+        /*
+         * Controls (Drive, Forklift, Arm, Minibot)
+         */
+
+        // Drive (steerController, turnController)
+
+        // Forklift (stick) | (buttonUp, buttonDown)
+        forkLift.setController(con1.Y, con1.A);
+
+        // Arm (stick) | (buttonForward, buttonBackward)
+        arm.setController(con2.rStick);
     }
     
     public void robotInit()
