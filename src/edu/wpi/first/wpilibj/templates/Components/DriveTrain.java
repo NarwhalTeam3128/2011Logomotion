@@ -1,7 +1,11 @@
 package edu.wpi.first.wpilibj.templates.Components;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Button;
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Stick;
+import edu.wpi.first.wpilibj.templates.Controls;
 /**
  *
  * @author GarrisonP
@@ -21,6 +25,11 @@ public class DriveTrain
     final int MECANUM = 0;
     final int TANK = 1;
     final int ARCADE = 2;
+    
+    private Stick turnController;
+    private Stick steerController;
+    private Gyro gyro;
+    
     /**
      *
      * @param frontLeftMotor
@@ -281,4 +290,29 @@ public class DriveTrain
         out[1] = x * sinA + y * cosA;
         return out;
     }
+
+    public void update()
+    {
+        // Get X and Y Velocity from controller
+        double xVelocity = steerController.getStickX() * Math.abs(steerController.getStickX());
+        double yVelocity = steerController.getStickY() * Math.abs(steerController.getStickY());
+
+        // Get Rotational Velocity from controller
+        double rotationalVelocity = turnController.getStickX() * Math.abs(turnController.getStickX());
+
+        // Get gyro angle
+        double gyroAngle = gyro.getAngle();
+
+        setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
+    }
+
+    public void setController(XboxGamepad.Stick steer, XboxGamepad.Stick turn){
+        steerController = steer;
+        turnController = turn;
+    }
+
+    public void setGyro(Gyro g){
+        gyro = g;
+    }
+
 }

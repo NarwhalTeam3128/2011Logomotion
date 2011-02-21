@@ -71,6 +71,7 @@ public class MainRobot extends IterativeRobot
     public MainRobot()
     {
         drive = new DriveTrain(1,3,2,4);
+        drive.setGyro(gyro);
         //lineSensors = new LineSensorManager(lineSensorChannels);
         //compressor = new BlowholePnumaticCompressorManager();
 
@@ -121,6 +122,7 @@ public class MainRobot extends IterativeRobot
          */
 
         // Drive (steerController, turnController)
+        drive.setController(con1.lStick, con1.rStick);
 
         // Forklift (stick) | (buttonUp, buttonDown)
         forkLift.setController(con1.Y, con1.A);

@@ -106,19 +106,7 @@ public class Teleoperated extends ICPProtocol{
      * Sets the Wheels in the right direction
      */
     public void setDrive(){
-
-        // Get X and Y Velocity from controller
-        double xVelocity = con1.lStick.getStickX() * Math.abs(con1.lStick.getStickX());
-        double yVelocity = con1.lStick.getStickY() * Math.abs(con1.lStick.getStickY());
-
-        // Get Rotational Velocity from controller
-        double rotationalVelocity = con1.rStick.getStickX() * Math.abs(con1.rStick.getStickX());
-
-        // Get gyro angle
-        double gyroAngle = gyro.getAngle();
-
-        drive.setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
-
+        drive.update();
     }
 
     public void setForklift(){
