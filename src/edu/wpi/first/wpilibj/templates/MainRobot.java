@@ -70,6 +70,8 @@ public class MainRobot extends IterativeRobot
      */
     public MainRobot()
     {
+        gyro = new Gyro(1);
+
         drive = new DriveTrain(1,3,2,4);
         drive.setGyro(gyro);
         //lineSensors = new LineSensorManager(lineSensorChannels);
@@ -89,7 +91,7 @@ public class MainRobot extends IterativeRobot
         arm = new Arm(7);
 
         dashboard = new SimpleDashboard();
-        gyro = new Gyro(1);
+        
         compressor = new CompressorManager(1,1);
 
         solenoid = new Solenoid(8);
