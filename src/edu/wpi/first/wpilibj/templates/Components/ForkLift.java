@@ -8,6 +8,8 @@ package edu.wpi.first.wpilibj.templates.Components;
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Stick;
+import edu.wpi.first.wpilibj.templates.Controls;
 
 /**
  *
@@ -20,6 +22,8 @@ public class ForkLift {
     double LowSettingEncodervalue;//Arbitrary encoder value for the Low Height 
     double MidSettingEncodervalue;//Arbitrary encoder value for the Mid Height
     double HighSettingEncodervalue;//Arbitrary encoder value for the High Height
+    private Stick stick;
+    private int controllerType;
     
     
     /*random channel for the motor. Change to whatever is configured
@@ -110,9 +114,19 @@ public class ForkLift {
         ForkLiftMotor2.set(0);
     }
 
-    public void setDrive(XboxGamepad.Stick s)
+    public void update()
     {
-        ForkLiftMotor1.set(s.getStickY());
-        ForkLiftMotor2.set(s.getStickY());
+        if(controllerType == Controls.STICK){
+
+            double speed = stick.getStickY() * Math.abs(stick.getStickY());
+
+            ForkLiftMotor1.set(speed);
+            ForkLiftMotor2.set(speed * -1);
+        }
+    }
+
+    public void setController(XboxGamepad.Stick st){
+        stick = st;
+        controllerType = Controls.STICK;
     }
 }

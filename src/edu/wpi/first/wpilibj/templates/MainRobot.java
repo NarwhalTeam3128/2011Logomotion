@@ -83,6 +83,7 @@ public class MainRobot extends IterativeRobot
 
         // Forklift
         forkLift = new ForkLift();
+        forkLift.setController(con2.lStick);
 
         // Arm
         arm = new Arm(7);

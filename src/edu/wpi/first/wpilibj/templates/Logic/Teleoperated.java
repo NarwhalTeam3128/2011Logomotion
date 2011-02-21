@@ -121,12 +121,7 @@ public class Teleoperated extends ICPProtocol{
     }
 
     public void setForklift(){
-
-        double speed = con2.lStick.getStickY()*Math.abs(con2.lStick.getStickY());
-
-        forkLift.ForkLiftMotor1.set(speed);
-        forkLift.ForkLiftMotor2.set(speed * -1);
-        
+        forkLift.update();
     }
 
     public void setArm(){
