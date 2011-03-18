@@ -20,6 +20,18 @@ public class DriveTrain
     Encoder frontRightEnc;
     Encoder rearLeftEnc;
     Encoder rearRightEnc;
+    public double frontLeftFCompValue = 1;
+    public double frontRightFCompValue = 1;
+    public double rearLeftFCompValue = 1;
+    public double rearRightFCompValue = 1;
+    public double frontLeftRCompValue = 1;
+    public double frontRightRCompValue = 1;
+    public double rearLeftRCompValue = 1;
+    public double rearRightRCompValue = 1;
+
+    public double[] FCompValues = {frontLeftFCompValue, frontRightFCompValue, rearLeftFCompValue,rearRightFCompValue};
+    public double[] RCompValues = {frontLeftFCompValue, frontRightFCompValue, rearLeftFCompValue,rearRightFCompValue};
+    
     int driveType;
 
     final int MECANUM = 0;
@@ -257,23 +269,37 @@ public class DriveTrain
     /**
      * Compensate for odd motor issues
      */
-    protected static double[] compensate(double wheelSpeeds[])
+    protected double[] compensate(double wheelSpeeds[])
     {
         for(int i = 0;i<wheelSpeeds.length;i++)
         {
-            if(i==0 || i==2)
+            if(i==0)
             {
                 if(wheelSpeeds[i]>0)
-                    wheelSpeeds[i] = wheelSpeeds[i] * .8;
+                    wheelSpeeds[i] = wheelSpeeds[i] * frontLeftFCompValue;
                 else
-                    wheelSpeeds[i] = wheelSpeeds[i] * 1.2;
+                    wheelSpeeds[i] = wheelSpeeds[i] * frontLeftRCompValue;
             }
-            else if(i==1 || i==3)
+            else if(i==1)
             {
                 if(wheelSpeeds[i]>0)
-                    wheelSpeeds[i] = wheelSpeeds[i] * 1.2;
+                    wheelSpeeds[i] = wheelSpeeds[i] * frontRightRCompValue;
                 else
-                    wheelSpeeds[i] = wheelSpeeds[i] * .8;
+                    wheelSpeeds[i] = wheelSpeeds[i] * frontRightFCompValue;
+            }
+            else if(i==2)
+            {
+                if(wheelSpeeds[i]>0)
+                    wheelSpeeds[i] = wheelSpeeds[i] * rearLeftFCompValue;
+                else
+                    wheelSpeeds[i] = wheelSpeeds[i] * rearLeftRCompValue;
+            }
+            else if(i==3)
+            {
+                if(wheelSpeeds[i]>0)
+                    wheelSpeeds[i] = wheelSpeeds[i] * rearRightRCompValue;
+                else
+                    wheelSpeeds[i] = wheelSpeeds[i] * rearRightFCompValue;
             }
         }
         return wheelSpeeds;
@@ -294,8 +320,8 @@ public class DriveTrain
     public void update()
     {
         // Get X and Y Velocity from controller
-        double xVelocity = steerController.getStickX() * Math.abs(steerController.getStickX());
         double yVelocity = steerController.getStickY() * Math.abs(steerController.getStickY());
+        double xVelocity = steerController.getStickX() * Math.abs(steerController.getStickX());
 
         // Get Rotational Velocity from controller
         double rotationalVelocity = turnController.getStickX() * Math.abs(turnController.getStickX());
@@ -303,7 +329,7 @@ public class DriveTrain
         // Get gyro angle
         double gyroAngle = gyro.getAngle();
 
-        setDrive_Mecanum(xVelocity, yVelocity, rotationalVelocity, gyroAngle);
+        setDrive_Mecanum(-yVelocity, xVelocity, rotationalVelocity, gyroAngle);
     }
 
     public void setController(XboxGamepad.Stick steer, XboxGamepad.Stick turn){

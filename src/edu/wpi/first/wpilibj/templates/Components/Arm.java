@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.templates.Controls;
  */
 public class Arm
 {
-    Jaguar motor;
+    public Jaguar motor;
     XboxGamepad.Stick stick;
     int controllerType;
     private Button buttonForward;
