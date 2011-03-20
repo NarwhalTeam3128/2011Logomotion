@@ -3,8 +3,11 @@ import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
 import edu.wpi.first.wpilibj.templates.Components.LineSensorManager;
 import edu.wpi.first.wpilibj.templates.Components.ForkLift;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.templates.Components.Arm;
 import edu.wpi.first.wpilibj.templates.MainRobot;
+import java.lang.reflect.Array;
 
 /**
  *
@@ -16,25 +19,45 @@ public class Autonomous extends ICPProtocol{
     LineSensorManager lineSensors;
     ForkLift forkLift;
     Gyro gyro;
+    double moves[][] = {
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0}
+    };
 
-    public double timer;
+    int count;
+
+    public Timer timer = new Timer();
 
     public int state;
 
     double autonX;
     double autonY;
     double autonRot;
+    Jaguar jags[] = new Jaguar[8];
+    Arm arm;
+    private Jaguar minibot;
 
     public void setRobot(MainRobot r){
         drive = r.getDrive();
         lineSensors = r.getLineSensors();
         forkLift = r.getForkLift();
+        minibot = r.getMinibot();
+        arm = r.getArm();
+        timer.start();
+        count = 0;
+        jags[0] = drive.getFrontLeftJag();
+        jags[1] = drive.getFrontRightJag();
+        jags[2] = drive.getRearLeftJag();
+        jags[3] = drive.getRearRightJag();
+        jags[4] = forkLift.getForkLiftMotor1();
+        jags[5] = forkLift.getForkLiftMotor2();
+        jags[6] = arm.getMotor();
+        jags[7] = minibot;
     }
 
     public void init(){
         forkLift.HighDrive();
         drive.setDrive_Mecanum(autonX, autonY, autonRot, gyro.getAngle());
-        timer = Timer.getFPGATimestamp();
     }
 
     public void periodic(){
@@ -44,6 +67,14 @@ public class Autonomous extends ICPProtocol{
 
     public void continuous()
     {
+        if(timer.get()>25000000)
+        {
+            for(int x = 0; x<jags.length;x++)
+            {
+                jags[x].set(moves[count][x]);
+            }
+            count++;
+        }
         if(state == 0)
         {
             autonY=1;
@@ -93,6 +124,10 @@ public class Autonomous extends ICPProtocol{
             autonRot = 0;
         }
         drive.setDrive_Mecanum(autonY,0,autonRot,gyro.getAngle());
+    }
+
+    public void raiseForklift(){
+        
     }
 
 }

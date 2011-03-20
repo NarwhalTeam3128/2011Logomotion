@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.templates.Controls;
  * @author Dennis Shen
  */
 public class ForkLift {
-    public Jaguar ForkLiftMotor1;
-    public Jaguar ForkLiftMotor2;
+    private Jaguar ForkLiftMotor1;
+    private Jaguar ForkLiftMotor2;
     public Encoder ForkLiftEncoder;
     double LowSettingEncodervalue;//Arbitrary encoder value for the Low Height 
     double MidSettingEncodervalue;//Arbitrary encoder value for the Mid Height
@@ -63,20 +63,20 @@ public class ForkLift {
         {
             while(ForkLiftEncoder.get()-LowSettingEncodervalue>3)
             {
-                ForkLiftMotor1.set(-.75);
-                ForkLiftMotor2.set(-.75);//speed is arbitrary - can change if needed test value
+                getForkLiftMotor1().set(-.75);
+                getForkLiftMotor2().set(-.75);//speed is arbitrary - can change if needed test value
             }
         }
         else if(ForkLiftEncoder.get()-LowSettingEncodervalue<-3)
         {
             while(ForkLiftEncoder.get()-LowSettingEncodervalue<-3)
             {
-                ForkLiftMotor1.set(.75);
-                ForkLiftMotor2.set(.75);//speed is arbitrary - can change if needed test value
+                getForkLiftMotor1().set(.75);
+                getForkLiftMotor2().set(.75);//speed is arbitrary - can change if needed test value
             }
         }
-        ForkLiftMotor1.set(0);
-        ForkLiftMotor2.set(0);
+        getForkLiftMotor1().set(0);
+        getForkLiftMotor2().set(0);
     }
     public void MidDrive()
     {
@@ -84,20 +84,20 @@ public class ForkLift {
         {
             while(ForkLiftEncoder.get()-MidSettingEncodervalue>3)
             {
-                ForkLiftMotor1.set(-.75);
-                ForkLiftMotor2.set(-.75);//speed is arbitrary - can change if needed test value
+                getForkLiftMotor1().set(-.75);
+                getForkLiftMotor2().set(-.75);//speed is arbitrary - can change if needed test value
             }
         }
         else if(ForkLiftEncoder.get()-MidSettingEncodervalue<-3)
         {
             while(ForkLiftEncoder.get()-MidSettingEncodervalue<-3)
             {
-                ForkLiftMotor1.set(.75);
-                ForkLiftMotor2.set(.75);//speed is arbitrary - can change if needed test value
+                getForkLiftMotor1().set(.75);
+                getForkLiftMotor2().set(.75);//speed is arbitrary - can change if needed test value
             }
         }
-        ForkLiftMotor1.set(0);
-        ForkLiftMotor2.set(0);
+        getForkLiftMotor1().set(0);
+        getForkLiftMotor2().set(0);
     }
     public void HighDrive()
     {
@@ -105,20 +105,20 @@ public class ForkLift {
         {
             while(ForkLiftEncoder.get()-HighSettingEncodervalue>3)
             {
-                ForkLiftMotor1.set(-.75);
-                ForkLiftMotor2.set(-.75);//speed is arbitrary - can change if needed test value
+                getForkLiftMotor1().set(-.75);
+                getForkLiftMotor2().set(-.75);//speed is arbitrary - can change if needed test value
             }
         }
         else if(ForkLiftEncoder.get()-HighSettingEncodervalue<-3)
         {
             while(ForkLiftEncoder.get()-HighSettingEncodervalue<-3)
             {
-                ForkLiftMotor1.set(.75);
-                ForkLiftMotor2.set(.75);//speed is arbitrary - can change if needed test value
+                getForkLiftMotor1().set(.75);
+                getForkLiftMotor2().set(.75);//speed is arbitrary - can change if needed test value
             }
         }
-        ForkLiftMotor1.set(0);
-        ForkLiftMotor2.set(0);
+        getForkLiftMotor1().set(0);
+        getForkLiftMotor2().set(0);
     }
 
     public void update()
@@ -126,24 +126,24 @@ public class ForkLift {
         if(controllerType == Controls.STICK){
             double speed = stick.getStickY() * Math.abs(stick.getStickY());
 
-            ForkLiftMotor1.set(speed);
-            ForkLiftMotor2.set(speed * -1);
+            getForkLiftMotor1().set(speed);
+            getForkLiftMotor2().set(speed * -1);
         }
         else if(controllerType == Controls.BUTTON){
 
             if(buttonDown.isPressed()){
-                ForkLiftMotor1.set(1);
-                ForkLiftMotor2.set(-1);
+                getForkLiftMotor1().set(1);
+                getForkLiftMotor2().set(-1);
             }
 
             else if(buttonUp.isPressed()){
-                ForkLiftMotor1.set(-1);
-                ForkLiftMotor2.set(1);
+                getForkLiftMotor1().set(-1);
+                getForkLiftMotor2().set(1);
             }
 
             else{
-                ForkLiftMotor1.set(0);
-                ForkLiftMotor2.set(0);
+                getForkLiftMotor1().set(0);
+                getForkLiftMotor2().set(0);
             }
 
         }
@@ -151,18 +151,18 @@ public class ForkLift {
 
             if(pad.getLeftRight() > 0){
                 System.out.println("Up");
-                ForkLiftMotor1.set(1);
-                ForkLiftMotor2.set(-1);
+                getForkLiftMotor1().set(1);
+                getForkLiftMotor2().set(-1);
             }
             else if(pad.getLeftRight() < 0){
                 System.out.println("Down");
-                ForkLiftMotor1.set(-1);
-                ForkLiftMotor2.set(1);
+                getForkLiftMotor1().set(-1);
+                getForkLiftMotor2().set(1);
             }
             else{
                 System.out.println("Stop");
-                ForkLiftMotor1.set(0);
-                ForkLiftMotor2.set(0);
+                getForkLiftMotor1().set(0);
+                getForkLiftMotor2().set(0);
             }
 
         }
@@ -185,5 +185,19 @@ public class ForkLift {
         buttonUp = up;
         buttonDown = down;
         controllerType = Controls.BUTTON;
+    }
+
+    /**
+     * @return the ForkLiftMotor1
+     */
+    public Jaguar getForkLiftMotor1() {
+        return ForkLiftMotor1;
+    }
+
+    /**
+     * @return the ForkLiftMotor2
+     */
+    public Jaguar getForkLiftMotor2() {
+        return ForkLiftMotor2;
     }
 }

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.templates.Components.Arm;
 import edu.wpi.first.wpilibj.templates.Components.CompressorManager;
 import edu.wpi.first.wpilibj.templates.Components.ForkLift;
+import edu.wpi.first.wpilibj.templates.MacroRecord;
 import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
@@ -31,12 +32,15 @@ public class Teleoperated extends ICPProtocol{
 
     Solenoid solenoid;
     Arm arm;
+    Jaguar jags[] = new Jaguar[8];
+    MacroRecord recorder;
 
     Timer timer = new Timer();
     public double zeroT;
     public double epicT;
     private Jaguar minibot;
     private boolean placed = false;
+    boolean record = false;
 
     /*
      * This method will be called initally
@@ -51,7 +55,8 @@ public class Teleoperated extends ICPProtocol{
     /*
      * This method will be called continously
      */
-    public void continuous(){
+    public void continuous()
+    {
 
         if(con1.A.isPressed()){
             solenoid.set(true);
@@ -82,6 +87,14 @@ public class Teleoperated extends ICPProtocol{
         setArm();
         setDrive();
         setForklift();
+
+        if(this.record){
+            if(timer.get()>25000000)
+            {
+                this.recorder.record();
+                timer.reset();
+            }
+        }
     }
 
     /*
@@ -104,6 +117,18 @@ public class Teleoperated extends ICPProtocol{
         arm = r.getArm();
         solenoid = r.getSolenoid();
         minibot = r.getMinibot();
+
+        jags[0] = drive.getFrontLeftJag();
+        jags[1] = drive.getFrontRightJag();
+        jags[2] = drive.getRearLeftJag();
+        jags[3] = drive.getRearRightJag();
+        jags[4] = forkLift.getForkLiftMotor1();
+        jags[5] = forkLift.getForkLiftMotor2();
+        jags[6] = arm.getMotor();
+        jags[7] = minibot;
+
+        recorder = new MacroRecord(jags);
+        timer.start();
     }
 
     /*
