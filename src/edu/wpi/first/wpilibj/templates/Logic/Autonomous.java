@@ -3,9 +3,12 @@ import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
 import edu.wpi.first.wpilibj.templates.Components.LineSensorManager;
 import edu.wpi.first.wpilibj.templates.Components.ForkLift;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.templates.Components.Arm;
+
 import edu.wpi.first.wpilibj.templates.Components.XboxGamepad.Button;
+
 import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
@@ -19,26 +22,44 @@ public class Autonomous extends ICPProtocol{
     ForkLift forkLift;
     Arm arm;
     Gyro gyro;
+    double moves[][] = {
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0}
+    };
 
-    public double timer;
-    public Timer timer2;
+
+    int count;
+
+    public Timer timer = new Timer();
+
 
     public int state;
     double autonX;
     double autonY;
     double autonRot;
+    Jaguar jags[] = new Jaguar[8];
+    private Jaguar minibot;
 
     public void setRobot(MainRobot r){
         drive = r.getDrive();
         lineSensors = r.getLineSensors();
         forkLift = r.getForkLift();
+        minibot = r.getMinibot();
+        arm = r.getArm();
+        timer.start();
+        count = 0;
+        jags[0] = drive.getFrontLeftJag();
+        jags[1] = drive.getFrontRightJag();
+        jags[2] = drive.getRearLeftJag();
+        jags[3] = drive.getRearRightJag();
+        jags[4] = forkLift.getForkLiftMotor1();
+        jags[5] = forkLift.getForkLiftMotor2();
+        jags[6] = arm.getMotor();
+        jags[7] = minibot;
     }
 
     public void init(){
-//        forkLift.HighDrive();
-//        drive.setDrive_Mecanum(autonX, autonY, autonRot, gyro.getAngle());
-//        timer = Timer.getFPGATimestamp();
-//        timer2.start();
+
     }
 
     public void periodic(){
@@ -48,33 +69,24 @@ public class Autonomous extends ICPProtocol{
 
     public void continuous()
     {
-//        if(state == 0)
-//        {
-//            if(timer2.get()<30000000000.0)//3 seconds it follows line after that it stops and sets state to 1
-//            {
-//                autonY=1;
-//                followLine();
-//            }
-//            else{
-//                drive.setDrive_Mecanum(0, 0, 0, 0);//stop
-//                state=1;
-//            }
-//        }
-//        else if(state == 1)//when state is 1 activate forklift
-//        {
-//            timer2.reset();
-//            timer2.start();
-//            if(timer2.get()<40000000000.0)//4 seconds
-//            {
-//                forkLift.ForkLiftMotor1.set(1);
-//                forkLift.ForkLiftMotor2.set(-1);
-//            }
-//            else if(timer2.get()>40000000000.0 && timer2.get()<80000000000.0)//all values are pretty arbitrary
-//            {
-//                arm.motor.set(.25);
-//            }
-//
-//        }
+
+        if(timer.get()>25000000)
+        {
+            for(int x = 0; x<jags.length;x++)
+            {
+                jags[x].set(moves[count][x]);
+            }
+            count++;
+        }
+        if(state == 0)
+        {
+            autonY=1;
+            followLine();
+        }
+        else if(state == 1)
+        {
+            //driveBackwardsABit();
+        }
     }
 
     /*
@@ -122,7 +134,6 @@ public class Autonomous extends ICPProtocol{
         }
         drive.setDrive_Mecanum(autonY,0,autonRot,gyro.getAngle());
     }
-
 
 
 }

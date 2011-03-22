@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.templates.Components.Arm;
 import edu.wpi.first.wpilibj.templates.Components.CompressorManager;
 import edu.wpi.first.wpilibj.templates.Components.ForkLift;
+import edu.wpi.first.wpilibj.templates.MacroRecord;
 import edu.wpi.first.wpilibj.templates.MainRobot;
 
 /**
@@ -31,17 +32,17 @@ public class Teleoperated extends ICPProtocol{
 
     Solenoid solenoid;
     Arm arm;
+    Jaguar jags[] = new Jaguar[8];
+    MacroRecord recorder;
 
     Timer timer = new Timer();
     public double zeroT;
     public double epicT;
     private Jaguar minibot;
     private boolean placed = false;
-    boolean a = false;
-    boolean b = false;
-    boolean c = false;
-    boolean d = false;
-    boolean done = false;
+
+    boolean record = false;
+
     /*
      * This method will be called initally
      */
@@ -55,52 +56,10 @@ public class Teleoperated extends ICPProtocol{
     /*
      * This method will be called continously
      */
-    public void continuous(){
+    public void continuous()
+    {
 
-//        if(con1.A.isPressed() && !a)
-//        {
-//            drive.FCompValues[0] -=.01;
-//            a = true;
-//        }
-//        else
-//        {
-//            a = false;
-//        }
-//        if(con1.B.isPressed() && !b)
-//        {
-//            drive.FCompValues[1] -=.01;
-//            b = true;
-//        }
-//        else
-//        {
-//            b = false;
-//        }
-//        if(con1.X.isPressed() && !c)
-//        {
-//            drive.FCompValues[2] -=.01;
-//            c = true;
-//        }
-//        else
-//        {
-//            c = false;
-//        }
-//        if(con1.Y.isPressed() && !d)
-//        {
-//            drive.FCompValues[3] -=.01;
-//            d = true;
-//        }
-//        else
-//        {
-//            d = false;
-//        }
-//        if(con1.Start.isPressed())
-//        {
-//            System.out.println("FCompValue 0 =="+drive.FCompValues[0]);
-//            System.out.println("FCompValue 1 =="+drive.FCompValues[1]);
-//            System.out.println("FCompValue 2 =="+drive.FCompValues[2]);
-//            System.out.println("FCompValue 3 =="+drive.FCompValues[3]);
-//            done = true;
-//        }
+
 //        if(con1.Back.isPressed())
 //        {
 //            compressor.comp.start();
@@ -130,6 +89,14 @@ public class Teleoperated extends ICPProtocol{
         setArm();
         setDrive();
         setForklift();
+
+        if(this.record){
+            if(timer.get()>25000000)
+            {
+                this.recorder.record();
+                timer.reset();
+            }
+        }
     }
 
     /*
@@ -152,6 +119,18 @@ public class Teleoperated extends ICPProtocol{
         arm = r.getArm();
         solenoid = r.getSolenoid();
         minibot = r.getMinibot();
+
+        jags[0] = drive.getFrontLeftJag();
+        jags[1] = drive.getFrontRightJag();
+        jags[2] = drive.getRearLeftJag();
+        jags[3] = drive.getRearRightJag();
+        jags[4] = forkLift.getForkLiftMotor1();
+        jags[5] = forkLift.getForkLiftMotor2();
+        jags[6] = arm.getMotor();
+        jags[7] = minibot;
+
+        recorder = new MacroRecord(jags);
+        timer.start();
     }
 
     /*

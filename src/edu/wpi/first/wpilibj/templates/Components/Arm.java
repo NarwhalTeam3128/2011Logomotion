@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.templates.Controls;
  */
 public class Arm
 {
+
     public Jaguar motor;
+
     XboxGamepad.Stick stick;
     int controllerType;
     private Button buttonForward;
@@ -42,20 +44,20 @@ public class Arm
     public void update(){
 
         if(controllerType == Controls.STICK){
-            motor.set( stick.getStickY() * Math.abs(stick.getStickY()) );
+            getMotor().set( stick.getStickY() * Math.abs(stick.getStickY()) );
         }
         else if(controllerType == Controls.BUTTON){
 
             if(buttonForward.isPressed()){
-                motor.set(1);
+                getMotor().set(1);
             }
 
             else if(buttonBackward.isPressed()){
-                motor.set(-1);
+                getMotor().set(-1);
             }
 
             else{
-                motor.set(0);
+                getMotor().set(0);
             }
 
         }
@@ -63,6 +65,13 @@ public class Arm
             throw new RuntimeException("No controller selected");
         }
         
+    }
+
+    /**
+     * @return the motor
+     */
+    public Jaguar getMotor() {
+        return motor;
     }
 
 }
