@@ -130,7 +130,7 @@ public class MainRobot extends IterativeRobot
         drive.setController(con1.lStick, con1.rStick);
 
         // Forklift (stick) | (buttonUp, buttonDown)
-        forkLift.setController(con1.Y, con1.A);
+        forkLift.setController(con2.lStick);
 
         // Arm (stick) | (buttonForward, buttonBackward)
         arm.setController(con2.rStick);
@@ -192,6 +192,7 @@ public class MainRobot extends IterativeRobot
     public void disabledContinuous()
     {
         disabled.continuous();
+        dashboard.update();
     }
 
     public void disabledPeriodic()

@@ -45,31 +45,31 @@ public class LineSensorManager {
     {
         if (sensors[0].getValue() && sensors[1].getValue() && sensors[2].getValue())
         {
-            return 0;
+            return 0;//hits all sensors
         }
         else if(sensors[0].getValue() && sensors[1].getValue() && !sensors[2].getValue())
         {
-            return 1;
+            return 1;//only the left and middle sensors
         }
         else if(sensors[0].getValue() && !sensors[1].getValue() && sensors[2].getValue())
         {
-            return 2;
+            return 2;//only middle and right sensors
         }
         else if(!sensors[0].getValue() && sensors[1].getValue() && !sensors[2].getValue())
         {
-            return 3;
+            return 3;//only the left sensors
         }
         else if(!sensors[0].getValue() && !sensors[1].getValue() && sensors[2].getValue())
         {
-            return 4;
+            return 4;//only the right sensor
         }
         else if(sensors[0].getValue() && !sensors[1].getValue() && !sensors[2].getValue())
         {
-            return 5;
+            return 5;//only middle sensor
         }
         else
         {
-            return 2;
+            return 6;//no sensor is being called
         }
 
 

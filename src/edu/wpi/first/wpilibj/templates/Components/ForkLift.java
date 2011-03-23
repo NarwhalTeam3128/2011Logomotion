@@ -126,8 +126,8 @@ public class ForkLift {
         if(controllerType == Controls.STICK){
             double speed = stick.getStickY() * Math.abs(stick.getStickY());
 
-            ForkLiftMotor1.set(speed);
-            ForkLiftMotor2.set(speed * -1);
+            ForkLiftMotor1.set((speed)/2);
+            ForkLiftMotor2.set((speed * -1)/2);
         }
         else if(controllerType == Controls.BUTTON){
 
