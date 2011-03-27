@@ -10,7 +10,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.templates.Logic.Teleoperated;
 import edu.wpi.first.wpilibj.templates.Logic.Disabled;
-import edu.wpi.first.wpilibj.templates.Logic.Autonomous;
+import edu.wpi.first.wpilibj.templates.Logic.DumbAutonomous;
 import edu.wpi.first.wpilibj.templates.Logic.ICPProtocol;
 import edu.wpi.first.wpilibj.templates.Components.Arm;
 import edu.wpi.first.wpilibj.templates.Components.DriveTrain;
@@ -26,6 +26,8 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.templates.Dashboard.SimpleDashboard;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.templates.Logic.Autonomous;
+import edu.wpi.first.wpilibj.templates.Logic.simple;
 
 
 /**
@@ -59,7 +61,7 @@ public class MainRobot extends IterativeRobot
     int[] lineSensorChannels;
 
     ICPProtocol autonomous;
-    ICPProtocol teleoperated;
+    Teleoperated teleoperated;
     ICPProtocol disabled;
 
     SimpleDashboard dashboard;
@@ -134,6 +136,7 @@ public class MainRobot extends IterativeRobot
 
         // Arm (stick) | (buttonForward, buttonBackward)
         arm.setController(con2.rStick);
+        teleoperated.setminibotdeploymentstick(con2.rStick);
     }
     
     public void robotInit()
@@ -145,18 +148,33 @@ public class MainRobot extends IterativeRobot
      */
     public void teleopInit()
     {
+        try{
         teleoperated.init();
+        }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void teleopContinuous()
     {
+        try{
         teleoperated.continuous();
         dashboard.update();
+        }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void teleopPeriodic()
     {
+        try{
         teleoperated.periodic();
+        }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
 
 
@@ -165,19 +183,33 @@ public class MainRobot extends IterativeRobot
      */
     public void autonomousInit()
     {
-        autonomous.init();
+        try{
+    autonomous.init();
+    }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void autonomousContinuous()
     {
+        try{
         autonomous.continuous();
         dashboard.update();
-
+        }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void autonomousPeriodic()
     {
+        try{
         autonomous.periodic();
+    }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
     
 
@@ -186,19 +218,37 @@ public class MainRobot extends IterativeRobot
      */
     public void disabledInit()
     {
+        try{
         disabled.init();
+        }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
+
     }
 
     public void disabledContinuous()
     {
+        try{
         disabled.continuous();
         dashboard.update();
+        }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
+
     }
 
     public void disabledPeriodic()
     {
+       try{
         disabled.periodic();
+        }  catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
+    
 
     /*
      * Setters/Getters
@@ -244,3 +294,4 @@ public class MainRobot extends IterativeRobot
         return minibot;
     }
 }
+

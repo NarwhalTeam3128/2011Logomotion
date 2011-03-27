@@ -29,6 +29,7 @@ public class Teleoperated extends ICPProtocol{
     // Controls
     XboxGamepad con1;
     XboxGamepad con2;
+    XboxGamepad.Stick minibotdeploymentcontrols;
 
     Solenoid solenoid;
     Arm arm;
@@ -41,7 +42,8 @@ public class Teleoperated extends ICPProtocol{
     private Jaguar minibot;
     private boolean placed = false;
 
-    boolean record = false;
+    boolean record = true;
+    double lastTime = 0;
 
     /*
      * This method will be called initally
@@ -51,14 +53,16 @@ public class Teleoperated extends ICPProtocol{
         setDrive();
         setForklift();
     }
-
+    public void setminibotdeploymentstick(XboxGamepad.Stick minibotstick){
+        minibotdeploymentcontrols = minibotstick;
+    }
 
     /*
      * This method will be called continously
      */
     public void continuous()
     {
-
+            timer.start();
 
 //        if(con1.Back.isPressed())
 //        {
@@ -69,13 +73,14 @@ public class Teleoperated extends ICPProtocol{
 //            compressor.comp.stop();
 //        }
         
-        if(con2.LB.isPressed() && con2.RB.isPressed() && con2.A.isPressed())
+        if(con2.LB.isPressed() && con2.RB.isPressed() && con2.rStick.isStickPressed())
         {
 //            timer.reset();
 //            timer.start();
 //            if(timer.get()<24000000000.0)
 //            {
-                minibot.set(-1);
+            arm.getMotor().set(0);
+                minibot.set(minibotdeploymentcontrols.getStickX() * Math.abs(minibotdeploymentcontrols.getStickX())*2);
 //                placed =true;
 //            }
 //            else if(timer.get()>24000000000.0)
@@ -85,16 +90,17 @@ public class Teleoperated extends ICPProtocol{
             
         }else{
             minibot.set(0);
+            setArm();
+
         }
-        setArm();
+        
         setDrive();
         setForklift();
 
         if(this.record){
-            if(timer.get()>25000000)
+            if(timer.getFPGATimestamp()-lastTime>.1)
             {
                 this.recorder.record();
-                timer.reset();
             }
         }
     }
@@ -152,6 +158,6 @@ public class Teleoperated extends ICPProtocol{
 
     public void deployMinibot()
     {
-        
+        jags[7].set(.5);
     }
 }
