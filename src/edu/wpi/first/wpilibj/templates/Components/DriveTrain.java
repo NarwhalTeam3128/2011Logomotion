@@ -323,7 +323,7 @@ public class DriveTrain
     {
         // Get X and Y Velocity from controller
         double yVelocity = steerController.getStickY() * Math.abs(steerController.getStickY());
-        double xVelocity = steerController.getStickX() * Math.abs(steerController.getStickX());
+        double xVelocity = 0.0;
 
 
         // Get Rotational Velocity from controller
