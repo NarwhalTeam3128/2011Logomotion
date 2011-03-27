@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.templates.Controls;
  */
 public class DriveTrain
 {
-    Jaguar frontLeftJag;
-    Jaguar frontRightJag;
-    Jaguar rearLeftJag;
-    Jaguar rearRightJag;
+    private Jaguar frontLeftJag;
+    private Jaguar frontRightJag;
+    private Jaguar rearLeftJag;
+    private Jaguar rearRightJag;
     Encoder frontLeftEnc;
     Encoder frontRightEnc;
     Encoder rearLeftEnc;
@@ -166,15 +166,17 @@ public class DriveTrain
      */
     public void setJags(double leftSpeed, double rightSpeed)
     {
-        if(frontLeftJag!=null)
-            frontLeftJag.set(leftSpeed);
-        if(frontRightJag!=null)
-            frontRightJag.set(rightSpeed);
-        if(rearLeftJag!=null)
-            rearLeftJag.set(leftSpeed);
-        if(rearRightJag!=null)
-            rearRightJag.set(rightSpeed);
+        if(getFrontLeftJag()!=null)
+            getFrontLeftJag().set(leftSpeed);
+        if(getFrontRightJag()!=null)
+            getFrontRightJag().set(rightSpeed);
+        if(getRearLeftJag()!=null)
+            getRearLeftJag().set(leftSpeed);
+        if(getRearRightJag()!=null)
+            getRearRightJag().set(rightSpeed);
     }
+
+    
 
     /**
      *
@@ -242,10 +244,10 @@ public class DriveTrain
 
         wheelSpeeds = normalize(wheelSpeeds);
 
-        frontLeftJag.set(wheelSpeeds[0]);
-        frontRightJag.set(wheelSpeeds[1]*-1);
-        rearLeftJag.set(wheelSpeeds[2]);
-        rearRightJag.set(wheelSpeeds[3]*-1);
+        getFrontLeftJag().set(wheelSpeeds[0]);
+        getFrontRightJag().set(wheelSpeeds[1]*-1);
+        getRearLeftJag().set(wheelSpeeds[2]);
+        getRearRightJag().set(wheelSpeeds[3]*-1);
     }
 
     /**
@@ -321,7 +323,8 @@ public class DriveTrain
     {
         // Get X and Y Velocity from controller
         double yVelocity = steerController.getStickY() * Math.abs(steerController.getStickY());
-        double xVelocity = steerController.getStickX() * Math.abs(steerController.getStickX());
+        double xVelocity = 0.0;
+
 
         // Get Rotational Velocity from controller
         double rotationalVelocity = turnController.getStickX() * Math.abs(turnController.getStickX());
@@ -339,6 +342,34 @@ public class DriveTrain
 
     public void setGyro(Gyro g){
         gyro = g;
+    }
+
+    /**
+     * @return the frontLeftJag
+     */
+    public Jaguar getFrontLeftJag() {
+        return frontLeftJag;
+    }
+
+    /**
+     * @return the frontRightJag
+     */
+    public Jaguar getFrontRightJag() {
+        return frontRightJag;
+    }
+
+    /**
+     * @return the rearLeftJag
+     */
+    public Jaguar getRearLeftJag() {
+        return rearLeftJag;
+    }
+
+    /**
+     * @return the rearRightJag
+     */
+    public Jaguar getRearRightJag() {
+        return rearRightJag;
     }
 
 }
